@@ -137,7 +137,7 @@ flowchart LR
     B -->|RAG question| C[RAG Service]
     B -->|Tool call| D[Tool Dispatcher]
 
-    C --> E[Embedding GeminI]
+    C --> E[Embedding Gemini]
     E --> F[Vector Search]
     F --> G[Firestore Chunks]
     G --> H[Context Builder]
@@ -163,6 +163,17 @@ flowchart LR
       O --> P[JSONL Indexing]
       P --> F
     end
+
+    %% Color styling for visual appeal
+    classDef user fill:#E8F1FF,stroke:#034694,stroke-width:2px,font-weight:bold;
+    classDef core fill:#D0F0C0,stroke:#2E7D32,stroke-width:2px,font-weight:bold;
+    classDef data fill:#FFF4C1,stroke:#F57F17,stroke-width:2px;font-weight:bold;
+    classDef backend fill:#F0D8FF,stroke:#6A1B9A,stroke-width:2px,font-weight:bold;
+
+    class A user;
+    class B,C,D,E,F,G,H,I,J core;
+    class M,N,O,P data;
+    class L1,L2,L3 backend;
 ```
 
 ### Plain text fallback (always visible)
