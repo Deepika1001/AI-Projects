@@ -149,9 +149,9 @@ flowchart LR
     K --> L[Backend Microservices]
 
     subgraph Backend Services
-      L1[Coupon Service (Spring Boot + Firestore)]
-      L2[Order Service (Spring Boot + Firestore)]
-      L3[User Service (Spring Boot + Firestore)]
+      L1[Coupon Service]
+      L2[Order Service]
+      L3[User Service]
     end
 
     K --> L1
