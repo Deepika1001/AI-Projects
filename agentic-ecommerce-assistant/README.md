@@ -134,15 +134,15 @@ I have added method-level and class-level documentation in source files:
 ```mermaid
 flowchart LR
     A[User Query]
-    A --> B[Agent Router (ai-agent/agent.py)]
-    B -->|RAG question| C[RAG Service (ai-agent/rag_service.py)]
-    B -->|Tool call| D[Tool Dispatcher (ai-agent/tools)]
+    A --> B[Agent Router]
+    B -->|RAG question| C[RAG Service]
+    B -->|Tool call| D[Tool Dispatcher]
 
-    C --> E[Embedding (Gemini Embedding)]
-    E --> F[Vector Search (Vertex AI Matching Engine)]
-    F --> G[Firestore Chunks Lookup (Firestore)]
-    G --> H[Context Builder (ai-agent/rag_service.py)]
-    H --> I[Gemini Generation (genai Client)]
+    C --> E[Embedding Gemini]
+    E --> F[Vector Search VertexAI]
+    F --> G[Firestore Chunks Lookup]
+    G --> H[Context Builder]
+    H --> I[Gemini Generation]
     I --> J[Answer to User]
 
     D --> K[Domain Tool APIs]
