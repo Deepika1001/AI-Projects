@@ -137,20 +137,20 @@ flowchart LR
     B -->|RAG question| C[RAG Service]
     B -->|Tool call| D[Tool Dispatcher]
 
-    C --> E[Embedding (gemini-embedding)]
+    C --> E[Embedding GeminI]
     E --> F[Vector Search]
-    F --> G[Firestore chunk lookup]
-    G --> H[Context builder]
-    H --> I[Gemini generation]
-    I --> J[Answer to user]
+    F --> G[Firestore Chunks]
+    G --> H[Context Builder]
+    H --> I[Gemini Generation]
+    I --> J[Answer to User]
 
-    D --> K[Domain tool APIs]
-    K --> L[Backend microservices]
+    D --> K[Domain Tool APIs]
+    K --> L[Backend Microservices]
 
-    subgraph Backend services
-      L1[Coupon service]
-      L2[Order service]
-      L3[User service]
+    subgraph Backend Services
+      L1[Coupon Service]
+      L2[Order Service]
+      L3[User Service]
     end
 
     K --> L1
@@ -158,9 +158,9 @@ flowchart LR
     K --> L3
 
     subgraph Ingestion
-      M[Source docs] --> N[Chunking & cleanup]
-      N --> O[Embedding + Firestore save]
-      O --> P[JSONL for indexing]
+      M[Source Docs] --> N[Chunking Cleanup]
+      N --> O[Embeddings Save]
+      O --> P[JSONL Indexing]
       P --> F
     end
 ```
