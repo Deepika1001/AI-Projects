@@ -1,5 +1,5 @@
 from rag_service import ask_rag
-from tools import call_tool
+from tools import is_rag_question, call_tool
 
 def ask_agent(user_query):
     """Route the user query to RAG retrieval or task tooling.

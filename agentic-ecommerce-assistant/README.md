@@ -129,6 +129,15 @@ I have added method-level and class-level documentation in source files:
 
 ## Architecture Flow Diagram
 
+### Implementation status
+
+- `ai-agent/agent.py` now imports `is_rag_question` and `call_tool` from `ai-agent/tools.py`.
+- `ai-agent/tools.py` includes:
+  - `is_rag_question(user_query)`
+  - `ask_rag(user_query)` (local fallback)
+  - `call_tool(user_query)` (tool-routing policy)
+- `ai-agent/rag_service.py` remains the full cloud RAG pipeline path (Vertex AI + Firestore + Gemini).
+
 ### Mermaid diagram (GitHub + compatible viewers)
 
 ```mermaid
@@ -157,6 +166,12 @@ flowchart LR
     K --> L1
     K --> L2
     K --> L3
+
+    L1 --> Q[API Response]
+    L2 --> Q
+    L3 --> Q
+
+    Q --> I[Gemini Generation]
 
     subgraph Ingestion
       M[Source Docs] --> N[Chunking Cleanup]
