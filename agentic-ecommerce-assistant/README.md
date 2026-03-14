@@ -133,24 +133,24 @@ I have added method-level and class-level documentation in source files:
 
 ```mermaid
 flowchart LR
-    A[User Query] --> B[Agent Router (ai-agent/agent.py)]
-    B -->|RAG question| C[RAG Service (ai-agent/rag_service.py)]
-    B -->|Tool call| D[Tool Dispatcher (ai-agent/tools/*.py)]
+    A[User Query] --> B[Agent Router]
+    B -->|RAG question| C[RAG Service]
+    B -->|Tool call| D[Tool Dispatcher]
 
-    C --> E[Embedding (gemini-embedding-001, Vertex AI)]
-    E --> F[Vector Search (Matching Engine Index)]
-    F --> G[Firestore Chunks Lookup (knowledge_chunks)]
-    G --> H[Context Builder + Prompt Assembly]
-    H --> I[Gemini Generation (gemini-2.5-flash)]
-    I --> J[Answer to User]
+    C --> E[Embedding (gemini-embedding)]
+    E --> F[Vector Search]
+    F --> G[Firestore chunk lookup]
+    G --> H[Context builder]
+    H --> I[Gemini generation]
+    I --> J[Answer to user]
 
-    D --> K[Domain Tool APIs]
-    K --> L[Backend Microservices]
+    D --> K[Domain tool APIs]
+    K --> L[Backend microservices]
 
-    subgraph Backend Services
-      L1[Coupon Service (Spring Boot + Firestore)]
-      L2[Order Service (Spring Boot + Firestore)]
-      L3[User Service (Spring Boot + Firestore)]
+    subgraph Backend services
+      L1[Coupon service]
+      L2[Order service]
+      L3[User service]
     end
 
     K --> L1
@@ -158,9 +158,9 @@ flowchart LR
     K --> L3
 
     subgraph Ingestion
-      M[Text & PDF Content] --> N[Chunking & Cleanup (ai-agent/ingestion/build_embeddings.py)]
-      N --> O[Embedding & Firestore Save]
-      O --> P[JSONL for Indexing]
+      M[Source docs] --> N[Chunking & cleanup]
+      N --> O[Embedding + Firestore save]
+      O --> P[JSONL for indexing]
       P --> F
     end
 ```
