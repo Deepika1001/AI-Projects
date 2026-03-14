@@ -2,3 +2,5 @@ numpy
 google-cloud-firestore
 google-cloud-aiplatform
 google-genai
+requests
+streamlit

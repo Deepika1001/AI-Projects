@@ -1,3 +1,13 @@
+import re
+
+import requests
+
+
+ORDER_SERVICE_BASE_URL = "http://localhost:8081"
+COUPON_SERVICE_BASE_URL = "http://localhost:8083"
+USER_SERVICE_BASE_URL = "http://localhost:8082"
+
+
 def is_rag_question(user_query: str) -> bool:
     """
     Determine whether the query should be answered using RAG.
@@ -62,20 +72,63 @@ def call_tool(user_query: str) -> str:
     """
 
     query = user_query.lower()
+    order_id_match = re.search(r"\border\s+(\d+)\b", query)
+    user_id_match = re.search(r"\buser\s+(\d+)\b", query)
+    coupon_code_match = re.search(r"\bcoupon\s+([a-zA-Z0-9_-]+)\b", user_query)
 
-    if "order status" in query:
-        return "Order #12345 is currently shipped."
+    if order_id_match and any(
+        phrase in query
+        for phrase in ["where is my order", "order status", "track order", "status of order"]
+    ):
+        order_id = order_id_match.group(1)
+        response = requests.get(
+            f"{ORDER_SERVICE_BASE_URL}/orders/{order_id}/status",
+            timeout=10,
+        )
+        if response.status_code == 200:
+            return f"Order {order_id} status: {response.text}"
+        return f"Order {order_id} not found."
 
-    elif "order details" in query:
-        return "Order #12345 contains 2 items and was placed on March 10."
+    elif order_id_match and any(
+        phrase in query
+        for phrase in ["order details", "show order", "get order", "order info"]
+    ):
+        order_id = order_id_match.group(1)
+        response = requests.get(
+            f"{ORDER_SERVICE_BASE_URL}/orders/{order_id}",
+            timeout=10,
+        )
+        if response.status_code == 200:
+            return response.text
+        return f"Order {order_id} not found."
 
-    elif "coupon" in query:
-        return "Coupon SAVE10 gives 10% discount on orders above $50."
+    elif coupon_code_match:
+        coupon_code = coupon_code_match.group(1)
+        response = requests.get(
+            f"{COUPON_SERVICE_BASE_URL}/coupons/{coupon_code}",
+            timeout=10,
+        )
+        if response.status_code == 200:
+            return response.text
+        return f"Coupon {coupon_code} not found."
 
     elif "register user" in query:
         return "User successfully registered."
 
     elif "update order" in query:
         return "Order updated successfully."
+
+    elif user_id_match and any(
+        phrase in query
+        for phrase in ["user details", "show user", "get user", "user info"]
+    ):
+        user_id = user_id_match.group(1)
+        response = requests.get(
+            f"{USER_SERVICE_BASE_URL}/users/{user_id}",
+            timeout=10,
+        )
+        if response.status_code == 200:
+            return response.text
+        return f"User {user_id} not found."
 
     return "Sorry, I couldn't understand the request."

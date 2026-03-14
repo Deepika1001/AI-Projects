@@ -17,11 +17,8 @@ from vertexai.language_models import TextEmbeddingModel, TextEmbeddingInput
 # =========================
 PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT", "agentic-ecommerce-ai")
 LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
-
-ENDPOINT_RESOURCE_NAME = (
-    "projects/156917156320/locations/us-central1/indexEndpoints/5379877409359134720"
-)
-DEPLOYED_INDEX_ID = "ecommerce_rag_deployed"
+ENDPOINT_RESOURCE_NAME = os.getenv("VERTEX_INDEX_ENDPOINT_RESOURCE_NAME", "")
+DEPLOYED_INDEX_ID = os.getenv("VERTEX_DEPLOYED_INDEX_ID", "ecommerce_rag_deployed")
 
 CHUNKS_COLLECTION = "knowledge_chunks"
 EMBEDDING_MODEL_NAME = "gemini-embedding-001"
@@ -59,6 +56,11 @@ def retrieve_neighbor_ids(user_query: str, top_k: int = 3) -> List[str]:
     """
     Query Vertex AI Vector Search and return chunk IDs.
     """
+    if not ENDPOINT_RESOURCE_NAME:
+        raise ValueError(
+            "Missing VERTEX_INDEX_ENDPOINT_RESOURCE_NAME environment variable."
+        )
+
     endpoint = aiplatform.MatchingEngineIndexEndpoint(
         index_endpoint_name=ENDPOINT_RESOURCE_NAME
     )

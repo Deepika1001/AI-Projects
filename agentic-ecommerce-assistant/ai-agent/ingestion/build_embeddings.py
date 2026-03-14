@@ -21,7 +21,7 @@ SOURCE_COLLECTION = "knowledge_base"
 CHUNKS_COLLECTION = "knowledge_chunks"
 
 OUTPUT_DIR = "data"
-OUTPUT_FILE = os.path.join(OUTPUT_DIR, "rag_chunks.jsonl")
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, "rag_chunks.json")
 
 EMBEDDING_MODEL_NAME = "gemini-embedding-001"
 
@@ -224,13 +224,13 @@ def save_chunks_to_firestore(records: List[Dict]) -> None:
     print(f"Saved {count} chunks to Firestore collection '{CHUNKS_COLLECTION}'.")
 
 
-def write_jsonl_for_vector_search(records: List[Dict], output_file: str = OUTPUT_FILE) -> None:
+def write_vector_search_json(records: List[Dict], output_file: str = OUTPUT_FILE) -> None:
     """
-    Write JSONL in a simple Vector Search-friendly format.
+    Write newline-delimited JSON for Vertex AI Vector Search.
     Each line contains:
       - id
       - embedding
-      - metadata
+      - embedding_metadata
     """
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
@@ -239,7 +239,7 @@ def write_jsonl_for_vector_search(records: List[Dict], output_file: str = OUTPUT
             item = {
                 "id": record["chunk_id"],
                 "embedding": record["embedding"],
-                "metadata": {
+                "embedding_metadata": {
                     "doc_id": record["doc_id"],
                     "title": record["title"],
                     "category": record["category"],
@@ -250,7 +250,7 @@ def write_jsonl_for_vector_search(records: List[Dict], output_file: str = OUTPUT
             }
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
 
-    print(f"Wrote {len(records)} records to {output_file}")
+    print(f"Wrote {len(records)} Vector Search records to {output_file}")
 
 
 def main() -> None:
@@ -286,8 +286,8 @@ def main() -> None:
     print("Saving chunk metadata to Firestore...")
     save_chunks_to_firestore(embedded_records)
 
-    print("Writing JSONL for Vector Search...")
-    write_jsonl_for_vector_search(embedded_records)
+    print("Writing newline-delimited JSON for Vector Search...")
+    write_vector_search_json(embedded_records)
 
     print("Done.")
 
