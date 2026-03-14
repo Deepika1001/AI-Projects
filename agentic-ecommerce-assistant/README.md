@@ -159,9 +159,9 @@ flowchart LR
     K --> L3
 
     subgraph Ingestion
-      M[Source Docs (knowledge-base)] --> N[Chunking & Cleanup (build_embeddings.py)]
-      N --> O[Embeddings Save (Gemini Embedding)]
-      O --> P[JSONL Indexing (ai-agent/ingestion)]
+      M[Source Docs] --> N[Chunking Cleanup]
+      N --> O[Embeddings Save]
+      O --> P[JSONL Indexing]
       P --> F
     end
 
