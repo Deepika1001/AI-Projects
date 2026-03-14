@@ -1,5 +1,8 @@
 package com.ecommerce.userservice.model;
 
+/**
+ * User domain object for user profile operations.
+ */
 public class User {
 
     private Long id;
@@ -8,6 +11,7 @@ public class User {
 
     public User() {}
 
+    /** Numeric user ID. */
     public Long getId() {
         return id;
     }
@@ -16,6 +20,7 @@ public class User {
         this.id = id;
     }
 
+    /** User display name. */
     public String getName() {
         return name;
     }
@@ -24,6 +29,7 @@ public class User {
         this.name = name;
     }
 
+    /** User e-mail address. */
     public String getEmail() {
         return email;
     }

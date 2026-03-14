@@ -17,6 +17,9 @@ public class OrderService {
         this.firestore = firestore;
     }
 
+    /**
+     * Retrieve order details by ID from Firestore.
+     */
     public Order getOrder(String id) {
         try {
             DocumentReference docRef = firestore.collection("orders").document(String.valueOf(id));
@@ -36,10 +39,16 @@ public class OrderService {
         }
     }
 
+    /**
+     * Get the status text for an order.
+     */
     public String getOrderStatus(String id) {
         return getOrder(id).getStatus();
     }
 
+    /**
+     * Update shipping address on an order and return updated order.
+     */
     public Order updateAddress(String id, String address) {
         try {
             DocumentReference docRef = firestore.collection("orders").document(String.valueOf(id));

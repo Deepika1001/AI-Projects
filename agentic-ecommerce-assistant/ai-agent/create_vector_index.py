@@ -8,6 +8,10 @@ GCS_URI = "gs://agentic-ecommerce-ai/vector_data/"
 aiplatform.init(project=PROJECT_ID, location=REGION)
 
 def main():
+    """Create a new MatchingEngine tree-approximate-hash vector index.
+
+    This script initializes a Matching Engine index for RAG retrieval.
+    """
     index = aiplatform.MatchingEngineIndex.create_tree_ah_index(
         display_name="ecommerce-rag-index",
         contents_delta_uri=GCS_URI,

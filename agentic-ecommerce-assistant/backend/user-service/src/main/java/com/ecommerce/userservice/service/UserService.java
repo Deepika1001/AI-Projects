@@ -17,6 +17,9 @@ public class UserService {
         this.firestore = firestore;
     }
 
+    /**
+     * Retrieve a user from Firestore by numeric ID.
+     */
     public User getUser(Long id) {
         try {
             DocumentReference docRef = firestore.collection("users").document(String.valueOf(id));
@@ -36,6 +39,9 @@ public class UserService {
         }
     }
 
+    /**
+     * Register or update a user record in Firestore.
+     */
     public User registerUser(User user) {
         try {
             DocumentReference docRef = firestore.collection("users").document(String.valueOf(user.getId()));

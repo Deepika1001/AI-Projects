@@ -8,6 +8,7 @@ INDEX_RESOURCE_NAME = "projects/156917156320/locations/us-central1/indexes/68450
 aiplatform.init(project=PROJECT_ID, location=REGION)
 
 def main():
+    """Deploy an existing Matching Engine index to a public endpoint."""
     index = aiplatform.MatchingEngineIndex(INDEX_RESOURCE_NAME)
 
     endpoint = aiplatform.MatchingEngineIndexEndpoint.create(

@@ -1,5 +1,8 @@
 package com.ecommerce.couponservice.model;
 
+/**
+ * Represents a coupon and discount metadata.
+ */
 public class Coupon {
 
     private String code;
@@ -8,6 +11,7 @@ public class Coupon {
 
     public Coupon() {}
 
+    /** Coupon code. */
     public String getCode() {
         return code;
     }
@@ -16,6 +20,7 @@ public class Coupon {
         this.code = code;
     }
 
+    /** Percentage or fixed discount value. */
     public Integer getDiscount() {
         return discount;
     }
@@ -24,6 +29,7 @@ public class Coupon {
         this.discount = discount;
     }
 
+    /** Active status. */
     public boolean isActive() {
         return active;
     }

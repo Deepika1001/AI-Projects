@@ -16,6 +16,12 @@ public class CouponService {
         this.firestore = firestore;
     }
 
+    /**
+     * Retrieve coupon data from Firestore by code.
+     *
+     * @param code coupon identifier
+     * @return Coupon object
+     */
     public Coupon getCoupon(String code) {
         try {
             DocumentReference docRef = firestore.collection("coupons").document(code);

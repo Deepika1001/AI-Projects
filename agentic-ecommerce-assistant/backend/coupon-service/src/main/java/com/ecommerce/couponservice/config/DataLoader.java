@@ -6,9 +6,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Bootstrap coupon sample data during app startup.
+ */
 @Configuration
 public class DataLoader {
 
+    /**
+     * CommandLineRunner to populate initial coupons in Firestore (for dev/test data).
+     */
     @Bean
     CommandLineRunner loadData(CouponRepository repository) {
         return args -> {
