@@ -181,10 +181,10 @@ flowchart LR
     end
 
     %% Color styling for visual appeal
-    classDef user fill:#E8F1FF,stroke:#034694,stroke-width:2px,font-weight:bold;
-    classDef core fill:#D0F0C0,stroke:#2E7D32,stroke-width:2px,font-weight:bold;
-    classDef data fill:#FFF4C1,stroke:#F57F17,stroke-width:2px;font-weight:bold;
-    classDef backend fill:#F0D8FF,stroke:#6A1B9A,stroke-width:2px,font-weight:bold;
+    classDef user fill:#E8F1FF,stroke:#034694,stroke-width:2px;
+    classDef core fill:#D0F0C0,stroke:#2E7D32,stroke-width:2px;
+    classDef data fill:#FFF4C1,stroke:#F57F17,stroke-width:2px;
+    classDef backend fill:#F0D8FF,stroke:#6A1B9A,stroke-width:2px;
 
     class A user;
     class B,C,D,E,F,G,H,I,J core;
