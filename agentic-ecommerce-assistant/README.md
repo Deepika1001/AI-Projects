@@ -301,3 +301,24 @@ Run in each backend module:
 - Replace placeholder endpoints, project IDs, and deployment values with your own environment-specific configuration.
 - Keep API keys, service accounts, and cloud credentials secure.
 - `ai-agent/data/` contains generated export artifacts and should be regenerated instead of edited manually.
+
+---
+
+## Cost Cleanup
+
+If you want to shut down the GCP resources created for Vector Search and related testing, use:
+
+```bash
+pwsh ./scripts/shutdown-gcp-resources.ps1
+```
+
+The script is interactive and can:
+
+- undeploy the deployed Vertex AI index
+- delete the Vertex AI endpoint
+- delete the Vertex AI index
+- remove the GCS `vector_data` folder
+- delete the Firestore database
+- disable Vertex AI, Firestore, and Storage APIs
+
+Review the prompts carefully before confirming destructive actions.
